@@ -732,7 +732,7 @@ private string GetFileExtension(string url)
 
 
 
-## More advanced visibility scenarios
+## Handling more advanced visibility scenarios
 
 You may have noticed that the properties that specify explicit dimensions for the video are still always visible. This is because there's a bit more complicated of logic to determine whether they should be displayed or not.
 
