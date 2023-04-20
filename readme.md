@@ -1,4 +1,4 @@
-# Stacking visibility conditions
+# Creating a video embed widget with visibility conditions
 
 Since the October 2022 refresh, Xperience by Kentico has supported the use of multiple visibility conditions in the properties of page builder and form builder components. This means that the visibility of one property can be dependent on multiple other properties at the same time.
 
@@ -746,6 +746,8 @@ or alternatively,
 `NOT((Service is not youtube) AND (Dynamic size is enabled))`
 
 With stacked visibility conditions, the field will only display when both of them are true. And since there's no way to negate the entire combination, we have to find an alternate way to evaluate a more complex boolean condition.
+
+A [custom visibility condition](https://docs.xperience.io/xp/developers-and-admins/customization/extend-the-administration-interface/ui-form-components/ui-form-component-visibility-conditions#UIformcomponentvisibilityconditions-Visibilityconditionswithfielddependencies) also does not quite cut it for this scenario. While they allow for more complex logic, they can only access the value of the property to which they are applied, and a single other property.
 
 A complicating factor to adding this logic is that visibility conditions must depend on properties that are rendered in the properties form. We can't rely on the value of a **`get`** accessor for a property that does not have an editing component, or which is currently hidden.
 
