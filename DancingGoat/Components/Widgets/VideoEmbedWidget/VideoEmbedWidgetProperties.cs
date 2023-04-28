@@ -28,21 +28,21 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Defines the video platform from which the embedded video originates.
         /// </summary>
-        [RadioGroupComponent(Label = "{$videoembedwidget.properties.service$}", Inline = true, Order = 1, Options = YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
+        [RadioGroupComponent(Label = "Video service", Inline = true, Order = 1, Options = YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
         public string Service { get; set; } = YOUTUBE;
         
         
         /// <summary>
         /// Defines the URL of the embedded video.
         /// </summary>
-        [TextInputComponent(Label = "{$videoembedwidget.properties.url$}", Order = 2)]
+        [TextInputComponent(Label = "Url", Order = 2)]
         public string Url { get; set; }
 
 
         /// <summary>
         /// Determines whether the video should be sized dynamically or with explicit dimensions.
         /// </summary>
-        [CheckBoxComponent(Label = "{$videoembedwidget.properties.dynamicsize$}", Order = 3)]
+        [CheckBoxComponent(Label = "Size dynamically", Order = 3)]
         [VisibleIfNotEqualTo(nameof(Service), YOUTUBE)]
         public bool DynamicSize { get; set; } = true;
 
@@ -50,7 +50,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines the width of the embed.
         /// </summary>
-        [NumberInputComponent(Label = "{$videoembedwidget.properties.width$}", Order = 4)]
+        [NumberInputComponent(Label = "Width (px)", Order = 4)]
         [VisibleIfTrue(nameof(ShowDimensions))]
         public int Width { get; set; } = 560;
 
@@ -58,7 +58,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Detemines the height of the embed.
         /// </summary>
-        [NumberInputComponent(Label = "{$videoembedwidget.properties.height$}", Order = 5)]
+        [NumberInputComponent(Label = "Height (px)", Order = 5)]
         [VisibleIfTrue(nameof(ShowDimensions))]
         public int Height { get; set; } = 315;
 
@@ -66,7 +66,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Defines the time to start the player at.
         /// </summary>        
-        [CheckBoxComponent(Label = "{$videoembedwidget.properties.playfrombeginning$}", Order = 6)]
+        [CheckBoxComponent(Label = "Play from beginning", Order = 6)]
         [VisibleIfNotEqualTo(nameof(Service), DAILYMOTION)]
         public bool PlayFromBeginning { get; set; } = true;
 
@@ -74,7 +74,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines whether the video will start at the beginning, or at a specified timestamp.
         /// </summary>
-        [NumberInputComponent(Label = "{$videoembedwidget.properties.startingtime$}", Order = 7)]
+        [NumberInputComponent(Label = "Starting time (seconds)", Order = 7)]
         [VisibleIfFalse(nameof(PlayFromBeginning))]
         [VisibleIfNotEqualTo(nameof(Service), DAILYMOTION)]
         public int StartingTime { get; set; } = 0;
