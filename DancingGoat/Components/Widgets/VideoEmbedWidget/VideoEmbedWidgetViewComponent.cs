@@ -3,20 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Web;
 using DancingGoat.Widgets;
-using CMS.Core;
+using Microsoft.Extensions.Localization;
 
-[assembly: RegisterWidget(VideoEmbedWidgetViewComponent.IDENTIFIER, typeof(VideoEmbedWidgetViewComponent), "{$videoembedwidget.name$}", typeof(VideoEmbedWidgetProperties), Description = "{$videoembedwidget.description$}", IconClass = "icon-triangle-right")]
+[assembly: RegisterWidget(VideoEmbedWidgetViewComponent.IDENTIFIER, typeof(VideoEmbedWidgetViewComponent), "Video embed", typeof(VideoEmbedWidgetProperties), Description = "Embeds a video in the page.", IconClass = "icon-triangle-right")]
 namespace DancingGoat.Widgets
 {
     public class VideoEmbedWidgetViewComponent : ViewComponent
     {
         public const string IDENTIFIER = "DancingGoat.VideoEmbedWidget";
 
-        private readonly ILocalizationService localizationService;
+        private readonly IStringLocalizer localizer;
 
-        public VideoEmbedWidgetViewComponent(ILocalizationService localizationService)
+        public VideoEmbedWidgetViewComponent(IStringLocalizer localizer)
         {
-            this.localizationService = localizationService;
+            this.localizer = localizer;
         }
 
         public IViewComponentResult Invoke(ComponentViewModel<VideoEmbedWidgetProperties> widgetProperties)
@@ -36,10 +36,10 @@ namespace DancingGoat.Widgets
                     VideoEmbedWidgetProperties.VIMEO => GetVimeoMarkup(widgetProperties),
                     VideoEmbedWidgetProperties.DAILYMOTION => GetDailyMotionMarkup(widgetProperties),
                     VideoEmbedWidgetProperties.FILE => GetFileMarkup(widgetProperties),
-                    _ => localizationService.GetString("videoembedwidget.message.servicenotfound"),
+                    _ => localizer["Specified video service not found."],
                 };
             }
-            return localizationService.GetString("videoembedwidget.message.nourl");                
+            return localizer["Please make sure the URL property is filled in."];                
         }
 
 
@@ -60,9 +60,9 @@ namespace DancingGoat.Widgets
                         return $"<video width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" controls><source src=\"{widgetProperties.Url}{anchor}\" type=\"video/{extension}\"></video>";
                     }
                 }
-                return localizationService.GetString("videoembedwidget.message.nofileextension");
+                return localizer["Unable to parse file extension from the provided Url."];
             }
-            return localizationService.GetString("videoembedwidget.message.nourl");
+            return localizer["Please make sure the URL property is filled in."];
         }
 
 
@@ -84,9 +84,9 @@ namespace DancingGoat.Widgets
                         return $"<iframe src=\"https://player.vimeo.com/video/{videoId}{anchor}\" width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" allowfullscreen ></iframe >";
                     }
                 }
-                return localizationService.GetString("videoembedwidget.message.novimeoid");
+                return localizer["Unable to parse Vimeo video ID from the provided Url."];
             }
-            return localizationService.GetString("videoembedwidget.message.nourl");
+            return localizer["Please make sure the URL property is filled in."];
         }
 
 
@@ -106,9 +106,9 @@ namespace DancingGoat.Widgets
                         return $"<iframe src=\"https://www.dailymotion.com/embed/video/{videoId}\" width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" frameborder=\"0\" type=\"text/html\" allowfullscreen title=\"Dailymotion Video Player\"></iframe>";
                     }
                 }
-                return localizationService.GetString("videoembedwidget.message.nodailymotionid");
+                return localizer["Unable to parse Dailymotion video ID from the provided Url."];
             }
-            return localizationService.GetString("videoembedwidget.message.nourl");
+            return localizer["Please make sure the URL property is filled in."];
         }
 
 
@@ -122,9 +122,9 @@ namespace DancingGoat.Widgets
                     string query = widgetProperties.PlayFromBeginning ? string.Empty : $"?start={widgetProperties.StartingTime}";
                     return $"<iframe width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" src=\"https://www.youtube.com/embed/{videoId}{query}\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share\" allowfullscreen></iframe>";
                 }
-                return localizationService.GetString("videoembedwidget.message.noyoutubeid");
+                return localizer["Unable to parse Youtube video ID from the provided Url."];
             }
-            return localizationService.GetString("videoembedwidget.message.nourl");
+            return localizer["Please make sure the URL property is filled in."];
         }
 
 

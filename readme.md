@@ -69,7 +69,7 @@ public string Service { get; set; }
 
 public string Url { get; set; }
 ```
-Next, we can signify whether the video should be sized dynamically, with a boolean property, and also add properties for the dimensions when its size is explicitly specified.
+Next, we can signify whether the video should be sized dynamically, using a boolean property, and also add properties for the dimensions when its size is explicitly specified.
 ```c#
 public bool DynamicSize { get; set; }
 
@@ -94,21 +94,21 @@ Since the **`Service`** property should be picking from a finite list of options
 ```c#
 //For using old C# components
 
-[EditingComponent(RadioButtonsComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.service$}", Order = 1)]
+[EditingComponent(RadioButtonsComponent.IDENTIFIER, Label = "Video service", Order = 1)]
 [EditingComponentProperty(nameof(RadioButtonsComponent.Properties.DataSource), YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
 public string Service { get; set; } = YOUTUBE;
 
-[EditingComponent(TextInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.url$}", Order = 2)]
+[EditingComponent(TextInputComponent.IDENTIFIER, Label = "Url", Order = 2)]
 public string Url { get; set; }
 ```
 
 ```c#
 //For using React components
 
-[RadioGroupComponent(Label = "{$videoembedwidget.properties.service$}", Inline = true, Order = 1, Options = YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
+[RadioGroupComponent(Label = "Video service", Inline = true, Order = 1, Options = YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
 public string Service { get; set; } = YOUTUBE;
 
-[TextInputComponent(Label = "{$videoembedwidget.properties.url$}", Order = 2)]
+[TextInputComponent(Label = "Url", Order = 2)]
 public string Url { get; set; }
 ```
 We can use checkbox components for the boolean properties **`DynamicSize`** and **`PlayFromBeginning`**, and number or integer components for **`Width`**, **`Height`**, and **`StartingTime`**. 
@@ -117,37 +117,37 @@ Set the default starting time to 0, since we don't know how long the provided vi
 ```c#
 //For using old C# components
 
-[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.dynamicsize$}", Order = 3)]
+[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Size dynamically", Order = 3)]
 public bool DynamicSize { get; set; } = true;
 
-[EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.width$}", Order = 4)]
+[EditingComponent(IntInputComponent.IDENTIFIER, Label = "Width (px)", Order = 4)]
 public int Width { get; set; } = 560;
 
-[EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.height$}", Order = 5)]
+[EditingComponent(IntInputComponent.IDENTIFIER, Label = "Height (px)", Order = 5)]
 public int Height { get; set; } = 315;
 
-[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.playfrombeginning$}", Order = 6)]
+[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Play from beginning", Order = 6)]
 public bool PlayFromBeginning { get; set; } = true;
 
-[EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.startingtime$}", Order = 7)]
+[EditingComponent(IntInputComponent.IDENTIFIER, Label = "Starting time (seconds)", Order = 7)]
 public int StartingTime { get; set; } = 0;
 ```
 ```c#
 //For using React components
 
-[CheckBoxComponent(Label = "{$videoembedwidget.properties.dynamicsize$}", Order = 3)]
+[CheckBoxComponent(Label = "Size dynamically", Order = 3)]
 public bool DynamicSize { get; set; } = true;
 
-[NumberInputComponent(Label = "{$videoembedwidget.properties.width$}", Order = 4)]
+[NumberInputComponent(Label = "Width (px)", Order = 4)]
 public int Width { get; set; } = 560;
 
-[NumberInputComponent(Label = "{$videoembedwidget.properties.height$}", Order = 5)]
+[NumberInputComponent(Label = "Height (px)", Order = 5)]
 public int Height { get; set; } = 315;
 
-[CheckBoxComponent(Label = "{$videoembedwidget.properties.playfrombeginning$}", Order = 6)]
+[CheckBoxComponent(Label = "Play from beginning", Order = 6)]
 public bool PlayFromBeginning { get; set; } = true;
 
-[NumberInputComponent(Label = "{$videoembedwidget.properties.startingtime$}", Order = 7)]
+[NumberInputComponent(Label = "Starting time (seconds)", Order = 7)]
 public int StartingTime { get; set; } = 0;
 ```
 
@@ -160,14 +160,14 @@ In my testing, Youtube embeds seem to get a bit wonky when trying to size them d
 ```c#
 //For using old C# components
 
-[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.dynamicsize$}", Order = 3)]
+[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Size dynamically", Order = 3)]
 [VisibilityCondition(nameof(Service), ComparisonTypeEnum.IsNotEqualTo, YOUTUBE)]
 public bool DynamicSize { get; set; } = true;
 ```
 ```c#
 //For using React components
 
-[CheckBoxComponent(Label = "{$videoembedwidget.properties.dynamicsize$}", Order = 3)]
+[CheckBoxComponent(Label = "Size dynamically", Order = 3)]
 [VisibleIfNotEqualTo(nameof(Service), YOUTUBE)]
 public bool DynamicSize { get; set; } = true;
 ```
@@ -176,14 +176,14 @@ Similarly, Dailymotion does not allow embeds to start at a specific timestamp, s
 ```c#
 //For using old C# components
 
-[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.playfrombeginning$}", Order = 6)]
+[EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Play from beginning", Order = 6)]
 [VisibilityCondition(nameof(Service), ComparisonTypeEnum.IsNotEqualTo, DAILYMOTION)]
 public bool PlayFromBeginning { get; set; } = true;
 ```
 ```c#
 //For using React components
 
-[CheckBoxComponent(Label = "{$videoembedwidget.properties.playfrombeginning$}", Order = 6)]
+[CheckBoxComponent(Label = "Play from beginning", Order = 6)]
 [VisibleIfNotEqualTo(nameof(Service), DAILYMOTION)]
 public bool PlayFromBeginning { get; set; } = true;
 ```
@@ -192,7 +192,7 @@ Next, let's determine the visibility of the **`StartingTime`** numeric input. We
 ```c#
 //For using old C# components
 
-[EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.startingtime$}", Order = 7)]
+[EditingComponent(IntInputComponent.IDENTIFIER, Label = "Starting time (seconds)", Order = 7)]
 [VisibilityCondition(nameof(Service), ComparisonTypeEnum.IsNotEqualTo, DAILYMOTION)]
 [VisibilityCondition(nameof(PlayFromBeginning), ComparisonTypeEnum.IsFalse)]
 public int StartingTime { get; set; } = 0;
@@ -200,7 +200,7 @@ public int StartingTime { get; set; } = 0;
 ```c#
 //For using React components
 
-[NumberInputComponent(Label = "{$videoembedwidget.properties.startingtime$}", Order = 7)]
+[NumberInputComponent(Label = "Starting time (seconds)", Order = 7)]
 [VisibleIfFalse(nameof(PlayFromBeginning))]
 [VisibleIfNotEqualTo(nameof(Service), DAILYMOTION)]
 public int StartingTime { get; set; } = 0;
@@ -268,9 +268,10 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Web;
 using DancingGoat.Widgets;
+using Microsoft.Extensions.Localization;
 ```
 
-Use the **`DancingGoat.Widgets`** namespace, and make the class inherit form **`ViewComponent`**.
+Use the **`DancingGoat.Widgets`** namespace, and make the class inherit from **`ViewComponent`**.
 
 ```c#
 namespace DancingGoat.Widgets
@@ -296,26 +297,26 @@ Then add the **`RegisterWidget`** assembly attribute to this class, passing each
 1. The CSS class of the icon which should visually represent the widget in the listing in page builder. Let's use the right-facing triangle icon, which resembles a "play" button.
 
 ```c#
-[assembly: RegisterWidget(VideoEmbedWidgetViewComponent.IDENTIFIER, typeof(VideoEmbedWidgetViewComponent), "{$videoembedwidget.name$}", typeof(VideoEmbedWidgetProperties), Description = "{$videoembedwidget.description$}", IconClass = "icon-triangle-right")]
+[assembly: RegisterWidget(VideoEmbedWidgetViewComponent.IDENTIFIER, typeof(VideoEmbedWidgetViewComponent), "Video embed", typeof(VideoEmbedWidgetProperties), Description = "Embeds a video in the page.", IconClass = "icon-triangle-right")]
 ```
 
 The path to the widget's view can also be included in the widget registration, but in keeping with this project's conventions, we will forgo this option and handle it elsewhere.
 
-Add a private property for an **`ILocalizationService`**, and populate it through dependency injection in the constructor.
+Add a private property for an **`IStringLocalizer`**, utilizing the SharedResources type which is included in the Dancing Goat by default, and populate it through dependency injection in the constructor.
 
 ```c#
-private readonly ILocalizationService localizationService;
+private readonly IStringLocalizer<SharedResources> localizer;
 
-public VideoEmbedWidgetViewComponent(ILocalizationService localizationService)
+public VideoEmbedWidgetViewComponent(IStringLocalizer<SharedResources> localizer)
 {
-    this.localizationService = localizationService;
+    this.localizer = localizer;
 }
 ```
-There is a built-in implementation of this service that will resolve resource strings registered with the system. (We will set up localization of resource strings later in this article.)
+This will open up the widget to the possibility of localization for its error messages in the future.
 
 With this setup taken care of, we can look into the meat of the component.
 
-The primary method of a view component is Invoke, of the type **`IViewComponentResult`**. For a parameter, it takes a **`ComponentViewModel`** with a generic type parameter to hold the type of its properties. This can be set to the **`IWidgetProperties`** implementation defined earlier, **`VideoEmbedWidgetProperties`**.
+The primary method of a view component is **`Invoke`**, of the type **`IViewComponentResult`**. For a parameter, it takes a **`ComponentViewModel`** with a generic type parameter to hold the type of its properties. This can be set to the **`IWidgetProperties`** implementation defined earlier, **`VideoEmbedWidgetProperties`**.
 
 ```c#
 public IViewComponentResult Invoke(ComponentViewModel<VideoEmbedWidgetProperties> widgetProperties)
@@ -352,7 +353,7 @@ if(widgetProperties != null && !string.IsNullOrEmpty(widgetProperties.Url))
 {
     //...
 }
-return localizationService.GetString("videoembedwidget.message.nourl");   
+return localizer["Please make sure the URL property is filled in."];   
 ```
 Now we can check which video service is selected, and create HTML markup accordingly. Let's use a **switch expression** to return a different method for each video service. We can use calls to methods that don't exist yet, and then go through an implement them one-at-a-time.
 
@@ -365,7 +366,7 @@ return widgetProperties.Service switch
     VideoEmbedWidgetProperties.VIMEO => GetVimeoMarkup(widgetProperties),
     VideoEmbedWidgetProperties.DAILYMOTION => GetDailyMotionMarkup(widgetProperties),
     VideoEmbedWidgetProperties.FILE => GetFileMarkup(widgetProperties),
-    _ => localizationService.GetString("videoembedwidget.message.servicenotfound"),
+    _ => localizer["Specified video service not found."],
 };
 ```
 The resulting GetEmbedMarkup file should look like this.
@@ -380,10 +381,10 @@ private string GetEmbedMarkup(VideoEmbedWidgetProperties widgetProperties)
             VideoEmbedWidgetProperties.VIMEO => GetVimeoMarkup(widgetProperties),
             VideoEmbedWidgetProperties.DAILYMOTION => GetDailyMotionMarkup(widgetProperties),
             VideoEmbedWidgetProperties.FILE => GetFileMarkup(widgetProperties),
-            _ => localizationService.GetString("videoembedwidget.message.servicenotfound"),
+            _ => localizer["Specified video service not found."],
         };
     }
-    return localizationService.GetString("videoembedwidget.message.nourl");                
+    return localizer["Please make sure the URL property is filled in."];                
 }
 ```
 Let's start out with the Youtube-specific method first.
@@ -401,7 +402,7 @@ if (widgetProperties != null && !string.IsNullOrEmpty(widgetProperties.Url))
 {
     //...
 }
-return localizationService.GetString("videoembedwidget.message.nourl");
+return localizer["Please make sure the URL property is filled in."];
 ```
  let's add a call to a method that extracts the Youtube ID of the video from the URL, which we will implement next.
 
@@ -420,7 +421,7 @@ if (!string.IsNullOrEmpty(videoId))
     string query = widgetProperties.PlayFromBeginning ? string.Empty : $"?start={widgetProperties.StartingTime}";
     return $"<iframe width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" src=\"https://www.youtube.com/embed/{videoId}{query}\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share\" allowfullscreen></iframe>";
 }
-return localizationService.GetString("videoembedwidget.message.noyoutubeid");
+return localizer["Unable to parse Youtube video ID from the provided Url."];
 ```
 The ending result will look like this:
 ```c#
@@ -434,9 +435,9 @@ private string GetYoutubeMarkup(VideoEmbedWidgetProperties widgetProperties)
             string query = widgetProperties.PlayFromBeginning ? string.Empty : $"?start={widgetProperties.StartingTime}";
             return $"<iframe width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" src=\"https://www.youtube.com/embed/{videoId}{query}\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share\" allowfullscreen></iframe>";
         }
-        return localizationService.GetString("videoembedwidget.message.noyoutubeid");
+        return localizer["Unable to parse Youtube video ID from the provided Url."];
     }
-    return localizationService.GetString("videoembedwidget.message.nourl");
+    return localizer["Please make sure the URL property is filled in."];
 }
 ```
 Moving on to the **`GetYoutubeId`** method mentioned above, it should be of the type **`string`**, and take a **`string`** parameter for the URL.
@@ -571,9 +572,9 @@ private string GetVimeoMarkup(VideoEmbedWidgetProperties widgetProperties)
         {
             //...
         }
-        return localizationService.GetString("videoembedwidget.message.novimeoid");
+        return localizer["Unable to parse Vimeo video ID from the provided Url."];
     }
-    return localizationService.GetString("videoembedwidget.message.nourl");
+    return localizer["Please make sure the URL property is filled in."];
 }
 
 ```
@@ -588,7 +589,7 @@ The share embed functionality on Vimeo nests the **`iframe`** within a **`div`**
 if(widgetProperties.DynamicSize)
 {
     
-    return "<div style=\"padding: 56.25 % 0 0 0; position: relative;\"><iframe src=\"https://player.vimeo.com/video/{videoId}{anchor}\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" allowfullscreen></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>";
+    return $"<div style=\"padding: 56.25% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/{videoId}{anchor}\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" allowfullscreen></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>";
 }
 else
 {
@@ -608,16 +609,16 @@ private string GetVimeoMarkup(VideoEmbedWidgetProperties widgetProperties)
             if(widgetProperties.DynamicSize)
             {
                 
-                return "<div style=\"padding: 56.25 % 0 0 0; position: relative;\"><iframe src=\"https://player.vimeo.com/video/{videoId}{anchor}\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" allowfullscreen></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>";
+                return $"<div style=\"padding: 56.25% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/{videoId}{anchor}\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" allowfullscreen></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>";
             }
             else
             {
                 return $"<iframe src=\"https://player.vimeo.com/video/{videoId}{anchor}\" width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" allowfullscreen ></iframe >";
             }
         }
-        return localizationService.GetString("videoembedwidget.message.novimeoid");
+        return localizer["Unable to parse Vimeo video ID from the provided Url."];
     }
-    return localizationService.GetString("videoembedwidget.message.nourl");
+    return localizer["Please make sure the URL property is filled in."];
 }
 ```
 Continuing down the switch statement in **`GetEmbedMarkup`**, we have GetDailyMotionMarkup next, which is nearly identical to the Vimeo method, except that it has no functionality for starting the video partway through or special script. At this point, I think you should be able to make sense of it all.
@@ -639,9 +640,9 @@ Continuing down the switch statement in **`GetEmbedMarkup`**, we have GetDailyMo
                         return $"<iframe src=\"https://www.dailymotion.com/embed/video/{videoId}\" width=\"{widgetProperties.Width}\" height=\"{widgetProperties.Height}\" frameborder=\"0\" type=\"text/html\" allowfullscreen title=\"Dailymotion Video Player\"></iframe>";
                     }
                 }
-                return localizationService.GetString("videoembedwidget.message.nodailymotionid");
+                return localizer["Unable to parse Dailymotion video ID from the provided Url."];
             }
-            return localizationService.GetString("videoembedwidget.message.nourl");
+            return localizer["Please make sure the URL property is filled in."];
         }
 ```
 The last of the Markup methods is **`GetFileMarkup`**. It will start out similarly to the others.
@@ -652,7 +653,7 @@ private string GetFileMarkup(VideoEmbedWidgetProperties widgetProperties)
     {
         //...
     }
-    return localizationService.GetString("videoembedwidget.message.nourl");
+    return localizer["Please make sure the URL property is filled in."];
 }
 ```
 However, this final method introduces a new requirement- The **`<video>`** tag in Html utilizes an attribute called **`type`** which is typically set to values such as **`"video/mp4"`** or **`"video/ogg"`**. In order to populate this attribute, we'll need to find the file extension of the provided video.
@@ -665,7 +666,7 @@ if (!string.IsNullOrEmpty(extension))
 {
     //...
 }
-return localizationService.GetString("videoembedwidget.message.nofileextension");
+return localizer["Unable to parse file extension from the provided Url."];
 ```
 The video tag supports starting times set through an anchor tag on the URL, similar to Vimeo.
 ```c#
@@ -732,9 +733,9 @@ private string GetFileExtension(string url)
 
 
 
-## Handling more advanced visibility scenarios
+## More advanced visibility scenarios
 
-You may have noticed that the properties that specify explicit dimensions for the video are still always visible. This is because there's a bit more complicated of logic to determine whether they should be displayed or not.
+You may have noticed that the properties that specify explicit dimensions for the video are still always visible. This is because the logic that should determine whether they are displayed is a bit more complicated.
 
 They should always be displayed when the selected service is Youtube, but only when the checkbox for dynamic size is not enabled for any other service.
 Logically, it should look something like this:
@@ -761,6 +762,7 @@ So in order to accomplish this end, let's create an invisible form component.
 
 
 ### **Invisible component in C#**
+If you're using C# components in your widget, follow along with this section. If not, move on to [Invisible component in React](#invisible-component-in-react)
 
 Under the **~/Components** folder in the solution, add a folder called **FormComponents**, then a folder called **InvisibleComponent** within it. This will be the directory for our invisible component. 
 
@@ -892,6 +894,7 @@ namespace DancingGoat.FormComponents
 
 
 ### **Invisible component in React**
+If you're using react components in your widget, follow along with this section.
 
 #### **Installing and setting up the boilerplate**
 
@@ -902,13 +905,22 @@ Don't forget to add a reference from your Dancing Goat solution to this new admi
 dotnet add reference <the relative path from your main project's root to your custom admin csproj>
 ```
 
+Then, set the **`CMSAdminClientModuleSettings`** mode for the boilerplate in the Dancing Goat site's **`appsettings.json`** file.
+```c#
+"CMSAdminClientModuleSettings": {
+    "dancinggoat-web-admin": {
+        "Mode": ""
+    }
+}
+```
+
 Optionally, open the boilerplate project, and delete the **~/UIPages** folder, as well as the **~/Client/src/custom-layout/CustomLayoutTemplate.tsx** file. Then, open **~/Client/src/entry.tsx** and delete the following line:
 ```tsx
 export * from './custom-layout/CustomLayoutTemplate';
 ```
 This will get rid of sample customizations for the UI which are not relevant to this article.
 
-Follow the steps outlined [in the documentation](https://docs.xperience.io/xp/developers-and-admins/customization/extend-the-administration-interface/prepare-your-environment-for-admin-development#Prepareyourenvironmentforadmindevelopment-Renametheboilerplateproject) to rename the organization from **acme** to **dancinggoat**.
+To complete the setup, follow the steps outlined [in the documentation](https://docs.xperience.io/xp/developers-and-admins/customization/extend-the-administration-interface/prepare-your-environment-for-admin-development#Prepareyourenvironmentforadmindevelopment-Renametheboilerplateproject) to rename the organization from **acme** to **dancinggoat**.
 
 #### **Creating the form component**
 
@@ -916,13 +928,10 @@ Next, create a folder called **invisible-form-component** in the **~/Client** di
 
 This will be our front-end file for the invisible form component, used by the administration UI. Because the whole point of our form component is to display nothing, it will be even simpler than the [example](https://docs.xperience.io/xp/developers-and-admins/customization/extend-the-administration-interface/ui-form-components#UIformcomponents-Formcomponentfrontend) provided by the documentation. 
 
-Import react and the default form component properties, as in the example, then export **`InvisibleFormComponent`** to return nothing.
+Unlike the documentation's example, we don't need to import react or the default form component properties. We aren't actually using the properties, or any react functionality.  Simply export **`InvisibleFormComponent`** to return nothing.
 
 ```tsx
-import React from 'react';
-import { FormComponentProps } from '@kentico/xperience-admin-base';
-
-export const InvisibleFormComponent = (props: FormComponentProps) => {
+export const InvisibleFormComponent = () => {
     return;
 };
 ```
@@ -1007,7 +1016,7 @@ Define **`IDENTIFIER`** and **`NAME`** constants for the class, and point the **
 public const string IDENTIFIER = "Custom.InvisibleComponent";
 public const string NAME = "InvisibleComponent";
 
-public override string ClientComponentName => "@dancinggoat/web-admin/Invisible";;
+public override string ClientComponentName => "@dancinggoat/web-admin/Invisible";
 ```
 
 Next, use the **`ComponentAttributeAttribute`** to map **`InvisibleComponentAttribute`** to this class.
@@ -1034,7 +1043,7 @@ namespace DancingGoat.FormComponents
         public const string IDENTIFIER = "Custom.InvisibleComponent";
         public const string NAME = "InvisibleComponent";
 
-        public override string ClientComponentName => "@dancinggoat/web-admin/Invisible";;
+        public override string ClientComponentName => "@dancinggoat/web-admin/Invisible";
     }
 }
 ```
@@ -1095,22 +1104,22 @@ Now that this special property is in place, we can add visibility conditions dep
 ```c#
 //For using old C# components
 
-[EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.width$}", Order = 4)]
+[EditingComponent(IntInputComponent.IDENTIFIER, Label = "Width (px)", Order = 4)]
 [VisibilityCondition(nameof(ShowDimensions), ComparisonTypeEnum.IsTrue)]
 public int Width { get; set; } = 560;
 
-[EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.height$}", Order = 5)]
+[EditingComponent(IntInputComponent.IDENTIFIER, Label = "Height (px)", Order = 5)]
 [VisibilityCondition(nameof(ShowDimensions), ComparisonTypeEnum.IsTrue)]
 public int Height { get; set; } = 315;
 ```
 ```c#
 //For using React components
 
-[NumberInputComponent(Label = "{$videoembedwidget.properties.width$}", Order = 4)]
+[NumberInputComponent(Label = "Width (px)", Order = 4)]
 [VisibleIfTrue(nameof(ShowDimensions))]
 public int Width { get; set; } = 560;
 
-[NumberInputComponent(Label = "{$videoembedwidget.properties.height$}", Order = 5)]
+[NumberInputComponent(Label = "Height (px)", Order = 5)]
 [VisibleIfTrue(nameof(ShowDimensions))]
 public int Height { get; set; } = 315;
 ```
@@ -1171,7 +1180,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Defines the video platform from which the embedded video originates.
         /// </summary>
-        [EditingComponent(RadioButtonsComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.service$}", Order = 1)]
+        [EditingComponent(RadioButtonsComponent.IDENTIFIER, Label = "Video service", Order = 1)]
         [EditingComponentProperty(nameof(RadioButtonsComponent.Properties.DataSource), YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
         public string Service { get; set; } = YOUTUBE;
 
@@ -1179,14 +1188,14 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Defines the URL of the embedded video.
         /// </summary>
-        [EditingComponent(TextInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.url$}", Order = 2)]
+        [EditingComponent(TextInputComponent.IDENTIFIER, Label = "Url", Order = 2)]
         public string Url { get; set; }
 
 
         /// <summary>
         /// 
         /// </summary>
-        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.dynamicsize$}", Order = 3)]
+        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Size dynamically", Order = 3)]
         [VisibilityCondition(nameof(Service), ComparisonTypeEnum.IsNotEqualTo, YOUTUBE)]
         public bool DynamicSize { get; set; } = true;
 
@@ -1194,7 +1203,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines the width of the embed.
         /// </summary>
-        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.width$}", Order = 4)]
+        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "Width (px)", Order = 4)]
         [VisibilityCondition(nameof(ShowDimensions), ComparisonTypeEnum.IsTrue)]
         public int Width { get; set; } = 560;
 
@@ -1202,7 +1211,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines the height of the embed.
         /// </summary>
-        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.height$}", Order = 5)]
+        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "Height (px)", Order = 5)]
         [VisibilityCondition(nameof(ShowDimensions), ComparisonTypeEnum.IsTrue)]
         public int Height { get; set; } = 315;
 
@@ -1210,7 +1219,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Defines the time to start the player at.
         /// </summary>
-        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.playfrombeginning$}", Order = 6)]
+        [EditingComponent(CheckBoxComponent.IDENTIFIER, Label = "Play from beginning", Order = 6)]
         [VisibilityCondition(nameof(Service), ComparisonTypeEnum.IsNotEqualTo, DAILYMOTION)]
         public bool PlayFromBeginning { get; set; } = true;
 
@@ -1218,7 +1227,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines whether the video will start at the beginning, or at a specified timestamp.
         /// </summary>
-        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "{$videoembedwidget.properties.startingtime$}", Order = 7)]
+        [EditingComponent(IntInputComponent.IDENTIFIER, Label = "Starting time (seconds)", Order = 7)]
         [VisibilityCondition(nameof(Service), ComparisonTypeEnum.IsNotEqualTo, DAILYMOTION)]
         [VisibilityCondition(nameof(PlayFromBeginning), ComparisonTypeEnum.IsFalse)]
         public int StartingTime { get; set; } = 0;
@@ -1267,21 +1276,21 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Defines the video platform from which the embedded video originates.
         /// </summary>
-        [RadioGroupComponent(Label = "{$videoembedwidget.properties.service$}", Inline = true, Order = 1, Options = YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
+        [RadioGroupComponent(Label = "Video service", Inline = true, Order = 1, Options = YOUTUBE + ";YouTube\r\n" + VIMEO + ";Vimeo\r\n" + DAILYMOTION + ";Dailymotion\r\n" + FILE + ";File URL\r\n")]
         public string Service { get; set; } = YOUTUBE;
         
         
         /// <summary>
         /// Defines the URL of the embedded video.
         /// </summary>
-        [TextInputComponent(Label = "{$videoembedwidget.properties.url$}", Order = 2)]
+        [TextInputComponent(Label = "Url", Order = 2)]
         public string Url { get; set; }
 
 
         /// <summary>
         /// Determines whether the video should be sized dynamically or with explicit dimensions.
         /// </summary>
-        [CheckBoxComponent(Label = "{$videoembedwidget.properties.dynamicsize$}", Order = 3)]
+        [CheckBoxComponent(Label = "Size dynamically", Order = 3)]
         [VisibleIfNotEqualTo(nameof(Service), YOUTUBE)]
         public bool DynamicSize { get; set; } = true;
 
@@ -1289,7 +1298,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines the width of the embed.
         /// </summary>
-        [NumberInputComponent(Label = "{$videoembedwidget.properties.width$}", Order = 4)]
+        [NumberInputComponent(Label = "Width (px)", Order = 4)]
         [VisibleIfTrue(nameof(ShowDimensions))]
         public int Width { get; set; } = 560;
 
@@ -1297,7 +1306,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines the height of the embed.
         /// </summary>
-        [NumberInputComponent(Label = "{$videoembedwidget.properties.height$}", Order = 5)]
+        [NumberInputComponent(Label = "Height (px)", Order = 5)]
         [VisibleIfTrue(nameof(ShowDimensions))]
         public int Height { get; set; } = 315;
 
@@ -1305,7 +1314,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Defines the time to start the player at.
         /// </summary>        
-        [CheckBoxComponent(Label = "{$videoembedwidget.properties.playfrombeginning$}", Order = 6)]
+        [CheckBoxComponent(Label = "Play from beginning", Order = 6)]
         [VisibleIfNotEqualTo(nameof(Service), DAILYMOTION)]
         public bool PlayFromBeginning { get; set; } = true;
 
@@ -1313,7 +1322,7 @@ namespace DancingGoat.Widgets
         /// <summary>
         /// Determines whether the video will start at the beginning, or at a specified timestamp.
         /// </summary>
-        [NumberInputComponent(Label = "{$videoembedwidget.properties.startingtime$}", Order = 7)]
+        [NumberInputComponent(Label = "Starting time (seconds)", Order = 7)]
         [VisibleIfFalse(nameof(PlayFromBeginning))]
         [VisibleIfNotEqualTo(nameof(Service), DAILYMOTION)]
         public int StartingTime { get; set; } = 0;
@@ -1328,198 +1337,4 @@ namespace DancingGoat.Widgets
     }
 }
 ```
-
-
-
-
-
-
-## Localizing resource strings
-
-Throughout this article, I'm sure you've noticed the use of several resource strings.
-
-Let's create a resource file for these strings and register it with the system. In the widget folder, add a c# class called **`VideoEmbedWidgetResources`** in the namespace **`DancingGoat.Widgets`**, and make sure it has the following using directives
-- using CMS.Localization;
-- using CMS.Base;
-
-Add the RegisterLocalizationResource assembly attribute to the class, registering this class with the system culture.
-```c#
-[assembly: RegisterLocalizationResource(typeof(DancingGoat.Widgets.VideoEmbedWidgetResources), SystemContext.SYSTEM_CULTURE_NAME)]
-```
-Now, add a .resx file to the same folder, with the same name, **`VideoEmbedWidgetResources.resx`**. This should then be displayed underneath the associated .cs file in Visual Studio's Solution Explorer.
-
-When you're starting out with your own project, it's often easiest to add them through the editing UI that Visual Studio provides. However, since we already have the resource strings prepared, let's just paste them into the code view.
-
-Right click the .resx file in the solution explorer, and choose **Open With...** > **XML (Text) Editor**, or just open the file with a text editor directly from the folder.
-
-Paste in the following.
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-    <xsd:element name="root" msdata:IsDataSet="true">
-      <xsd:complexType>
-        <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="data">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="resheader">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-              </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
-            </xsd:complexType>
-          </xsd:element>
-        </xsd:choice>
-      </xsd:complexType>
-    </xsd:element>
-  </xsd:schema>
-  <resheader name="resmimetype">
-    <value>text/microsoft-resx</value>
-  </resheader>
-  <resheader name="version">
-    <value>2.0</value>
-  </resheader>
-  <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </resheader>
-  <data name="videoembedwidget.properties.service" xml:space="preserve">
-	<value>Video service</value>
-  </data>
-    <data name="videoembedwidget.properties.url" xml:space="preserve">
-	  <value>Url</value>
-  </data>
-    <data name="videoembedwidget.properties.dynamicsize" xml:space="preserve">
-	  <value>Size dynamically</value>
-  </data>
-    <data name="videoembedwidget.properties.width" xml:space="preserve">
-	  <value>Width (px)</value>
-  </data>
-    <data name="videoembedwidget.properties.height" xml:space="preserve">
-	  <value>Height (px)</value>
-  </data>
-    <data name="videoembedwidget.properties.playfrombeginning" xml:space="preserve">
-	  <value>Play from beginning</value>
-  </data>
-    <data name="videoembedwidget.properties.startingtime" xml:space="preserve">
-	  <value>Starting time (seconds)</value>
-  </data>
-    <data name="videoembedwidget.description" xml:space="preserve">
-	  <value>Embeds a video in the page.</value>
-  </data>
-    <data name="videoembedwidget.name" xml:space="preserve">
-	  <value>Video embed</value>
-  </data>
-    <data name="videoembedwidget.message.servicenotfound" xml:space="preserve">
-	  <value>Specified video service not found.</value>
-  </data>
-    <data name="videoembedwidget.message.nourl" xml:space="preserve">
-	  <value>Please make sure the URL property is filled in.</value>
-  </data>
-    <data name="videoembedwidget.message.nofileextension" xml:space="preserve">
-	  <value>Unable to parse file extension from the provided Url.</value>
-  </data>
-    <data name="videoembedwidget.message.novimeoid" xml:space="preserve">
-	  <value>Unable to parse Vimeo video ID from the provided Url.</value>
-  </data>
-    <data name="videoembedwidget.message.nodailymotionid" xml:space="preserve">
-	  <value>Unable to parse Dailymotion video ID from the provided Url.</value>
-  </data>
-    <data name="videoembedwidget.message.noyoutubeid" xml:space="preserve">
-	  <value>Unable to parse Youtube video ID from the provided Url.</value>
-  </data>
-</root>
-```
-This should handle the resolution of any of the resource string keys present in this widget.
 
