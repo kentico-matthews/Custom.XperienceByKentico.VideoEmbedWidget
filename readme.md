@@ -1338,3 +1338,5 @@ namespace DancingGoat.Widgets
 }
 ```
 
+## Conclusion
+Now you should have a functioning video embed widget. Feel free to modify the code and add more styles and features. You can find a repository with the code of the widget and component [here](https://github.com/kentico-matthews/Custom.XperienceByKentico.VideoEmbedWidget). The **`main`** branch uses react components for the widget properties, while the **`CSharpComponents`** branch uses C# components.
